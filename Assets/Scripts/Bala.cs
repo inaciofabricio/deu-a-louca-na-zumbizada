@@ -22,9 +22,14 @@ public class Bala : MonoBehaviour
     {
         
 
-        if (objetoDeColisao.tag == "Inimigo")
+        switch (objetoDeColisao.tag)
         {
-            objetoDeColisao.GetComponent<ControlaInimigo>().TomarDano(1);
+            case "Inimigo":
+                objetoDeColisao.GetComponent<ControlaInimigo>().TomarDano(1);
+                break;
+            case "Chefe":
+                objetoDeColisao.GetComponent<ControlaChefe>().TomarDano(1);
+                break;
         }
 
         Destroy(gameObject);

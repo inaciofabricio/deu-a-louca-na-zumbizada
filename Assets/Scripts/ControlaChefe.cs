@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class ControlaChefe : MonoBehaviour, IMatavel
 {
@@ -11,6 +12,11 @@ public class ControlaChefe : MonoBehaviour, IMatavel
     private AnimacaoPersonagem animacaoChefe;
     private MovimentoPersonagem movimentoChefe;
     public GameObject KitMedicoPrefab;
+    public Slider sliderVidaChefe;
+    public Image ImageSlider;
+    public Color CorDaVidaMaxima, CorDaVidaMinima;
+    public GameObject SangueZumbi;
+    private ControlaInterface scriptControlaInterface;
 
     void Start()
     {
@@ -20,6 +26,9 @@ public class ControlaChefe : MonoBehaviour, IMatavel
         agente.speed = statusChefe.Velocidade;
         animacaoChefe = GetComponent<AnimacaoPersonagem>();
         movimentoChefe = GetComponent<MovimentoPersonagem>();
+        sliderVidaChefe.maxValue = statusChefe.VidaInicial;
+        scriptControlaInterface = GameObject.FindObjectOfType(typeof(ControlaInterface)) as ControlaInterface;
+        AtualizarInterface();
     }
 
     void Update()
@@ -53,6 +62,7 @@ public class ControlaChefe : MonoBehaviour, IMatavel
     public void TomarDano(int dano)
     {
         statusChefe.Vida -= dano;
+        AtualizarInterface();
 
         if (statusChefe.Vida <= 0)
         {
@@ -67,6 +77,20 @@ public class ControlaChefe : MonoBehaviour, IMatavel
         this.enabled = false;
         agente.enabled = false;
         Instantiate(KitMedicoPrefab, transform.position, Quaternion.identity);
+        scriptControlaInterface.AtualizarQuantidadeDeZumbisMortosChefe();
         Destroy(gameObject, 2);
+    }
+
+    void AtualizarInterface()
+    {
+        sliderVidaChefe.value = statusChefe.Vida;
+        float porcentagemDaVida = (float)(statusChefe.Vida / statusChefe.VidaInicial);
+        Color corDaVida = Color.Lerp(CorDaVidaMinima, CorDaVidaMaxima, porcentagemDaVida);
+        ImageSlider.color = corDaVida;
+    }
+
+    public void ParticulaSangue(Vector3 posicao, Quaternion rotacao)
+    {
+        Instantiate(SangueZumbi, posicao, rotacao);
     }
 }

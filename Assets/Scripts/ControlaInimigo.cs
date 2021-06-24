@@ -18,6 +18,8 @@ public class ControlaInimigo : MonoBehaviour, IMatavel
     private ControlaInterface scriptControlaInterface;
     [HideInInspector]
     public GeradorDeZumbis geradorDeZumbis;
+    public GameObject SangueZumbi;
+
 
     // Start is called before the first frame update
     void Start()
@@ -104,6 +106,11 @@ public class ControlaInimigo : MonoBehaviour, IMatavel
         {
             Morrer();
         }
+    }
+
+    public void ParticulaSangue(Vector3 posicao, Quaternion rotacao)
+    {
+        Instantiate(SangueZumbi, posicao, rotacao);
     }
 
     public void Morrer()

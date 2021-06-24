@@ -665,6 +665,7 @@ MonoBehaviour:
   SomDeMorte: {fileID: 8300000, guid: 6e9f69da088886b448d0d724d82a09d2, type: 3}
   KitMedicoPrefab: {fileID: 1060151288946202, guid: 6150c6f66b7034ec5b3672478195682a, type: 3}
   geradorDeZumbis: {fileID: 0}
+  SangueZumbi: {fileID: 3065436420714673243, guid: e0e55f20cc62e344ba24b043469c253d, type: 3}
 --- !u!114 &-1118282223690460772
 MonoBehaviour:
   m_ObjectHideFlags: 0

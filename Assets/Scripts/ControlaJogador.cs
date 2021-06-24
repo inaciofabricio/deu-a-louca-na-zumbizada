@@ -13,6 +13,7 @@ public class ControlaJogador : MonoBehaviour, IMatavel, ICuravel
     private MovimentoJogador meuMovimentoJogador;
     private AnimacaoPersonagem animacaoJogador;
     public Status statusJogador;
+    public GameObject PocaDeSangue;
 
     private void Awake()
     {
@@ -49,6 +50,14 @@ public class ControlaJogador : MonoBehaviour, IMatavel, ICuravel
         ControlaAudio.instancia.PlayOneShot(SomDeDano);
 
         if (statusJogador.Vida <= 0)
+        {
+            Morrer();
+        }
+    }
+
+    private void OnTriggerEnter(Collider objetoColisor)
+    {
+        if (objetoColisor.tag == "Sangue")
         {
             Morrer();
         }
